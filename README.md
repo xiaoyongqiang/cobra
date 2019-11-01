@@ -5,9 +5,9 @@ A simple and usable wild Jane assembled by the cobra frame and viper configurati
 --cmd 命令行服务  
 --configs 配置  
 --pkg 
--- | -- db mysql定义
--- | -- redis redis定义
---router http路由管理
+-- | -- db mysql定义 
+-- | -- redis redis定义 
+--router http路由管理 
 
 ## 程序说明:
 
