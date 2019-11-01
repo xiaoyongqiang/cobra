@@ -5,13 +5,10 @@ A simple and usable wild Jane assembled by the cobra frame and viper configurati
 --cmd 命令行服务  
 --configs 配置  
 --pkg 
--- | -- db    mysql定义
+-- | -- db mysql定义
 -- | -- redis redis定义
 --router http路由管理
 
 ## 程序说明:
-```go
 
- `go run main.go server --config=.cobra.yaml` 命令行形式启动对应服务 `server` 表示启动`cmd`目录下对应的该服务
-
-```
+ > `go run main.go server --config=.cobra.yaml` 命令行形式启动对应服务 `server` 表示启动`cmd`目录下对应的该服务
