@@ -2,12 +2,13 @@
 A simple and usable wild Jane assembled by the cobra frame and viper configuration
 
 ## 项目结构：
---cmd 命令行服务  
---configs 配置  
---pkg 
--- | -- db mysql定义 
--- | -- redis redis定义 
---router http路由管理 
+--cmd 命令行服务   
+--configs 配置 
+--router 路由管理 
+--pkg   
+-- | -- redis   
+-- | -- db  数据库
+
 
 ## 程序说明:
 
