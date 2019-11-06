@@ -1,0 +1,31 @@
+syntax = "proto3";
+package gateway;
+
+message CallPayListReq {
+    int64 appID = 1; // 系统ID号
+}
+
+message CallPayListRep {
+    string code = 1; // 200 为验签成功，其他为不成功
+    string message = 2; // 当code为200的时候，默认为OK，否则为报错信息
+    repeated PayItem payList = 3;
+}
+
+message PayItem {
+    string id = 1; // 渠道ID
+    string name = 2; // 渠道名字
+    string icon = 3; // 渠道图标，可谓为空
+    int64 status = 4; // 渠道状态
+    repeated TypeItem typeList = 5; // 渠道下可用的支付方式
+}
+
+message TypeItem {
+    string id = 1; // 支付方式ID
+    string name = 2; // 支付方式名字
+    string icon = 3; // 支付方式图标
+    int64 status = 4; // 支付方式状态
+}
+
+service PayCenterSrv {
+    rpc CallPayList(CallPayListReq) returns (CallPayListRep); // 测试proto生成
+}
