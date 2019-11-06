@@ -1,4 +1,4 @@
-port: 8888
+port: 8008
 runmode: debug
 
 db:
@@ -8,7 +8,7 @@ db:
   pass: 123456
   name: bumblebee_basic
   charset: utf8
-  idleConns: 20
+  idleConns: 10
   openConns: 50
 
 redis:
@@ -16,3 +16,11 @@ redis:
   port: 6379
   db: 11
   pass: ""
+
+nsq:
+  host: 127.0.0.1
+  port: 4150
+
+nsqlookupd:
+  host: 127.0.0.1
+  port: 4161
