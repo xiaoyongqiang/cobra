@@ -6,7 +6,7 @@
 
 3. `cmd` 目录下，对应的命令行服务处理不同的业务程序。 比如 `server` 服务 程序中是一个运用 `gin` 为列子的http服务
 
-4. `cmd` 目录下， `nsq` 消息队列服务的使用, 创建topic, channel, 监听集群管理的nsq服务的消息, 处理异步消息, 本地安装nsq服务可通过 `godep get github.com/bitly/nsq/...` 安装编译包
+4. `cmd` 目录下， `nsq` 消息队列服务的使用， 创建topic、channel 监听集群管理的nsq服务的消息， 处理异步消息，本地安装nsq服务可通过 `godep get github.com/bitly/nsq/...` 安装编译包
 
 ## 项目结构：
 
@@ -20,7 +20,7 @@
 -- | -- models 数据库模型定义  
 --pkg   
 -- | -- db   
--- | -- redis
+-- | -- redis   
 -- | -- nsq   
   
 
