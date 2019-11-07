@@ -8,6 +8,8 @@
 
 4. `cmd` 目录下， `nsq` 消息队列服务的使用， 创建topic、channel 监听集群管理的nsq服务的消息， 处理异步消息，本地安装nsq服务可通过 `godep get github.com/bitly/nsq/...` 安装编译包
 
+5. `cmd` 目录下， `grpc` 框架的使用，先进行安装 `go get github.com/grpc/grpc-go`, 其次我们要下载 `protocbuf生成器`，然后安装通过 `go get github.com/golang/protobuf`，接着我们通过 `go get -u github.com/golang/protobuf/protoc-gen-go` 生成可执行文件 `protoc-gen-go`，（ 将下载 `protocbuf生成器` 文件中 `protoc.exe` 设置为全局变量，将生成的 `protoc-gen-go.exe` 移动在该文件bin下面，全局使用得将设为全局变量 `PATH=$PATH:xxx/protoc/bin` ）， 接着就可以书写你需要的 `proto` 文件，通过指令 `protoc -I .  gateway.proto --go_out=plugins=grpc:.` 最后在当前文件夹生成pb.go文件...
+
 ## 项目结构：
 
 --cmd     程序入口  

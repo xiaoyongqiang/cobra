@@ -24,3 +24,8 @@ nsq:
 nsqlookupd:
   host: 127.0.0.1
   port: 4161
+
+rpc:
+  host: 127.0.0.1
+  port: 9311
+
