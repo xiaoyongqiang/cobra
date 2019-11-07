@@ -1,19 +1,18 @@
 package gateway
 
 import (
+	"cobra/pkg/rpc"
 	"context"
-	fmt "fmt"
-	"log"
 	"testing"
 
 	"github.com/spf13/viper"
-	grpc "google.golang.org/grpc"
 )
 
 func init() {
 	viper.SetConfigName(".cobra")
 	viper.AddConfigPath("../../")
 	viper.ReadInConfig()
+	rpc.Init()
 
 }
 
@@ -49,13 +48,10 @@ func TestPayList(t *testing.T) {
 }
 
 func TestPayListDial(t *testing.T) {
-	grpcConn, err := grpc.Dial(fmt.Sprintf("%s:%d", viper.GetString("rpc.host"), viper.GetInt("rpc.port")), grpc.WithInsecure())
-	if err != nil {
-		log.Printf("rpc dail err:%v", err)
-	}
-	defer grpcConn.Close()
 
-	client := NewPayCenterSrvClient(grpcConn)
+	client := NewPayCenterSrvClient(rpc.GrpcConn())
+	defer rpc.Close()
+
 	tests := []struct {
 		AppID        int64
 		ShouldBE     string
