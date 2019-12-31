@@ -22,6 +22,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -62,6 +63,7 @@ func Start() {
 		config.Close()
 	}()
 
+	logrus.SetLevel(logrus.DebugLevel)
 	config.MonitorConfig()
 
 	if err := config.LoadManages(); err != nil {

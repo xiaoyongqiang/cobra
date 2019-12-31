@@ -5,13 +5,12 @@ import (
 	"cobra/pkg/redis"
 	"cobra/tools"
 	"fmt"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
-
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -28,6 +27,13 @@ func Run() error {
 	router.Use(Authorization)
 
 	router.GET("/", func(c *gin.Context) {
+
+		// logrus.Warnf("Warnf-%v", "错误")
+		// logrus.Errorf("Errorf-%v", "错误")
+		// logrus.WithFields(logrus.Fields{
+		// 	"animal": "walrus",
+		// }).Infof("A walrus appears %s", "打印")
+
 		c.String(http.StatusOK, "hello go....")
 	})
 
@@ -46,7 +52,7 @@ func Authorization(c *gin.Context) {
 		stamp, _ := strconv.ParseInt(c.GetHeader("X-TS"), 10, 64)
 		ts := time.Unix(stamp, 0)
 		if time.Since(ts) > 30*time.Minute || time.Since(ts) < -30*time.Minute {
-			log.Printf("close client: request expires, please check both system time %s", c.ClientIP())
+			logrus.Printf("close client: request expires, please check both system time %s", c.ClientIP())
 			goto END
 		}
 
@@ -58,7 +64,7 @@ func Authorization(c *gin.Context) {
 
 		// 从redis上获取用户token
 		if token, err = redis.Client().Get(fmt.Sprintf(REDIS_KEY_Token, uid)).Result(); err != nil {
-			log.Printf("get token:%s failed:%v", token, err)
+			logrus.Printf("get token:%s failed:%v", token, err)
 			goto END
 		}
 
@@ -68,7 +74,7 @@ func Authorization(c *gin.Context) {
 		buf.WriteString(token)
 
 		if sign != tools.Sign(buf.String()) {
-			log.Printf("close client: sign error %v", c.ClientIP())
+			logrus.Printf("close client: sign error %v", c.ClientIP())
 			goto END
 		}
 	}

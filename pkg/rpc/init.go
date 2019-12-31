@@ -17,10 +17,10 @@ func Init() error {
 	mtx.Lock()
 	defer mtx.Unlock()
 
-	log.Printf("Initializing Grpc server ... %v \n", viper.Get("rpc"))
+	log.Printf("Initializing Grpc Dail ... %v \n", viper.Get("rpc"))
 	client, err := grpc.Dial(fmt.Sprintf("%s:%d", viper.GetString("rpc.host"), viper.GetInt("rpc.port")), grpc.WithInsecure())
 	if err != nil {
-		log.Printf("rpc dail err:%v", err)
+		log.Printf("grpc dail err:%v", err)
 		return err
 	}
 
