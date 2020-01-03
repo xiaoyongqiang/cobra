@@ -10,7 +10,6 @@ import (
 func init() {
 	viper.SetConfigName(".cobra")
 	viper.AddConfigPath("../../")
-	viper.ReadInConfig()
 
 	if err := Init(); err != nil {
 		log.Printf("mysql test err: %v", err)
