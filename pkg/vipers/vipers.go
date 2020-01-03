@@ -2,7 +2,9 @@ package vipers
 
 import (
 	"fmt"
+	"log"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
 
@@ -28,6 +30,9 @@ func LoadBusinessConfs(path string) {
 		panic(fmt.Errorf("Fatal error reading common config file: %v", err))
 	}
 	vi.X.WatchConfig()
+	vi.X.OnConfigChange(func(e fsnotify.Event) {
+		log.Printf("configuration changes file src: %s, data: %+v", e.Name, vi.X.AllSettings())
+	})
 
 	vi.Y = viper.New()
 	vi.Y.AddConfigPath(path)
@@ -36,4 +41,7 @@ func LoadBusinessConfs(path string) {
 		panic(fmt.Errorf("Fatal error reading common config file: %v", err))
 	}
 	vi.Y.WatchConfig()
+	vi.Y.OnConfigChange(func(e fsnotify.Event) {
+		log.Printf("configuration changes file src: %s, data: %+v", e.Name, vi.Y.AllSettings())
+	})
 }

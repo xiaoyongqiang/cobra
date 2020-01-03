@@ -18,6 +18,7 @@ require (
 	golang.org/x/net v0.0.0-20191204025024-5ee1b9f4859a
 	google.golang.org/appengine v1.6.5 // indirect
 	google.golang.org/grpc v1.25.1
+	gopkg.in/fsnotify.v1 v1.4.7
 )
 
 go 1.13
