@@ -1,0 +1,12 @@
+#业务级别配置
+int: 1
+bool: true
+map:
+  key1:
+    "appId": 10041
+    "gameId": 1004101
+    "secretkey": f8e55880f82140c6a5c7b5a48fd1b3d3
+  key2:
+    "appId": 10041
+    "gameId": 1004101
+    "secretkey": f8e55880f82140c6a5c7b5a48fd1b3d3

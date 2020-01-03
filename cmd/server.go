@@ -16,6 +16,7 @@ package cmd
 
 import (
 	"cobra/config"
+	"cobra/pkg/vipers"
 	"cobra/router"
 	"log"
 	"os"
@@ -25,6 +26,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
+
+var cfgDir string
 
 // serverCmd represents the server command
 var serverCmd = &cobra.Command{
@@ -49,8 +52,7 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// serverCmd.PersistentFlags().String("foo", "", "A help for foo")
-
+	rootCmd.PersistentFlags().StringVar(&cfgDir, "yaml", "./yaml/", "config dir ( default is ./yaml/ )")
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// serverCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
@@ -65,6 +67,8 @@ func Start() {
 
 	logrus.SetLevel(logrus.DebugLevel)
 	config.MonitorConfig()
+
+	vipers.LoadBusinessConfs(cfgDir)
 
 	if err := config.LoadManages(); err != nil {
 		log.Printf("load manages fail :%v", err)

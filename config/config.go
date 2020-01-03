@@ -40,6 +40,6 @@ func Close() error {
 
 	db.Close()
 	redis.Close()
-	log.Println("server colse db redis...")
+	log.Printf("server colse db redis...")
 	return nil
 }

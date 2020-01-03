@@ -12,7 +12,7 @@ import (
 var grpcConn *grpc.ClientConn
 var mtx sync.RWMutex
 
-//Init 初始化redis对象
+//Init 初始化rpc对象
 func Init() error {
 	mtx.Lock()
 	defer mtx.Unlock()
@@ -28,7 +28,7 @@ func Init() error {
 	return nil
 }
 
-// Close 关闭redis连接
+// Close 关闭rpc连接
 func Close() {
 	if grpcConn != nil {
 		grpcConn.Close()

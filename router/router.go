@@ -3,6 +3,7 @@ package router
 import (
 	"bytes"
 	"cobra/pkg/redis"
+	"cobra/pkg/vipers"
 	"cobra/tools"
 	"fmt"
 	"net/http"
@@ -27,14 +28,7 @@ func Run() error {
 	router.Use(Authorization)
 
 	router.GET("/", func(c *gin.Context) {
-
-		// logrus.Warnf("Warnf-%v", "错误")
-		// logrus.Errorf("Errorf-%v", "错误")
-		// logrus.WithFields(logrus.Fields{
-		// 	"animal": "walrus",
-		// }).Infof("A walrus appears %s", "打印")
-
-		c.String(http.StatusOK, "hello go....")
+		c.String(http.StatusOK, fmt.Sprintf("%+v --- %+v ---%s", vipers.Conf().X.AllSettings(), vipers.Conf().Y.AllSettings(), vipers.Conf().X.GetString("string")))
 	})
 
 	return router.Run(fmt.Sprintf(":%d", viper.GetInt("port")))
