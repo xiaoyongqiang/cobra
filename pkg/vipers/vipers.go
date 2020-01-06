@@ -14,6 +14,13 @@ type Vipers struct {
 	Y *viper.Viper `config:"test2"`
 }
 
+//Viperface 对像封装
+// type Viperface struct {
+// 	V       *viper.Viper
+// 	Tags    string
+// 	DirPath string
+// }
+
 var vi = &Vipers{}
 
 // Conf 返回 viper Conf
@@ -24,24 +31,30 @@ func Conf() *Vipers {
 //LoadBusinessConfs 加载业务配置
 func LoadBusinessConfs(path string) {
 	vi.X = viper.New()
-	vi.X.AddConfigPath(path)
-	vi.X.SetConfigName("test")
-	if err := vi.X.ReadInConfig(); err != nil {
-		panic(fmt.Errorf("Fatal error reading common config file: %v", err))
-	}
-	vi.X.WatchConfig()
-	vi.X.OnConfigChange(func(e fsnotify.Event) {
-		log.Printf("configuration changes file src: %s, data: %+v", e.Name, vi.X.AllSettings())
-	})
+	LoadingObjects(path, "test", vi.X)
 
 	vi.Y = viper.New()
-	vi.Y.AddConfigPath(path)
-	vi.Y.SetConfigName("test2")
-	if err := vi.Y.ReadInConfig(); err != nil {
+	LoadingObjects(path, "test2", vi.Y)
+}
+
+//LoadingObjects 加载到独立对象
+func LoadingObjects(path string /*文件夹路径*/, file string /*文件名字*/, v *viper.Viper /*独立配置对象*/) {
+
+	v.AddConfigPath(path)
+	v.SetConfigName(file)
+	if err := v.ReadInConfig(); err != nil {
 		panic(fmt.Errorf("Fatal error reading common config file: %v", err))
 	}
-	vi.Y.WatchConfig()
-	vi.Y.OnConfigChange(func(e fsnotify.Event) {
-		log.Printf("configuration changes file src: %s, data: %+v", e.Name, vi.Y.AllSettings())
+	v.WatchConfig()
+	v.OnConfigChange(func(e fsnotify.Event) {
+		log.Printf("configuration changes file src: %s, data: %+v", e.Name, v.AllSettings())
 	})
 }
+
+// //GetViperTag 获取对应tag
+// func GetViperTag(a *viper.Viper) {
+// 	s := reflect.TypeOf(*a) //通过反射获取type定义
+// 	for i := 0; i < s.NumField(); i++ {
+// 		fmt.Println(s.Field(i).Tag.Get("config")) //将tag输出出来
+// 	}
+// }
